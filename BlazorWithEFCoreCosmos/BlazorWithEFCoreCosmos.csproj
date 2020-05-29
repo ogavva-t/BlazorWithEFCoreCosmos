@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BlazorWithEFCoreCosmos.Entity\BlazorWithEFCoreCosmos.Entity.csproj" />
     <ProjectReference Include="..\BlazorWithEFCoreCosmos.Infrastructure\BlazorWithEFCoreCosmos.Infrastructure.csproj" />
+    <ProjectReference Include="..\BlazorWithEFCoreCosmos.Service\BlazorWithEFCoreCosmos.Repository.csproj" />
   </ItemGroup>
 
 </Project>

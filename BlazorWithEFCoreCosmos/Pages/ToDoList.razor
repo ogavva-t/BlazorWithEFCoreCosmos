@@ -1,0 +1,124 @@
+﻿@page "/todo/"
+@using System.Diagnostics
+@using BlazorWithEFCoreCosmos.Entity
+@using BlazorWithEFCoreCosmos.Repository
+@inject IToDoRepository ToDoRepository
+@inject NavigationManager NavigationManager
+
+<h1>ToDo List</h1>
+
+<div class="col-4">
+    <div class="card md-3 m-1">
+        <div class="card-header">New ToDo</div>
+        <div class="card-body m-1 p-1">
+            <EditForm Model="@newTodo" OnValidSubmit="@(() => HandleValidAdd())" class="m-1">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="form-group m-1">
+                    <span class="input-group-text" id="op.InitialPrice">Task Name</span>
+                    <InputText class="form-control" id="newTodo.TaskName" @bind-Value="@newTodo.TaskName" />
+                </div>
+                <div class="form-group m-1">
+                    <span class="input-group-text" id="newTodo.DueDate">Due Date</span>
+                    <InputDate type="datetime" class="form-control" id="newTodo.DueDate" @bind-Value="@newTodo.DueDate" />
+                </div>
+                <div class="form-group m-1"><button type="submit" class="btn btn-warning m-1">Add</button></div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+
+
+@if (todos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    @if (alertShow)
+    {
+        <div class="alert alert-success" role="alert" @onclick="@(() => HandleAlertClick())">
+            Added!
+        </div>
+    }
+    <div class="container mt-5">
+        <div class="row">
+            @foreach (var todo in todos)
+            {
+                <div class="col-3">
+                    <div class="card md-3 m-1">
+                        <div class="card-body m-1 p-1">
+                            <EditForm Model="@todo" class="m-1">
+                                <DataAnnotationsValidator />
+                                <ValidationSummary />
+                                <div class="form-group m-1">
+                                    <span class="input-group-text" id="todo.TaskName">Task Name</span>
+                                    <InputText class="form-control" id="todo.TaskName" @bind-Value="@todo.TaskName" />
+                                </div>
+                                <div class="form-group m-1">
+                                    <span class="input-group-text" id="todo.DueDate">Due Date</span>
+                                    <InputDate class="form-control" id="todo.DueDate" @bind-Value="@todo.DueDate" />
+                                </div>
+                                <div class="form-group m-1">
+                                    <span class="input-group-text" id="todo.Done">Done</span>
+                                    <InputCheckbox class="form-control" id="todo.Done" @bind-Value="@todo.Done" />
+                                </div>
+                                <div class="form-group m-1">
+                                    <button class="btn btn-danger m-1" @onclick="@(() => HandleDeleteClick(@todo.Id))">✖ Delete</button>
+                                    <button class="btn btn-success m-1" @onclick="@(() => HandleDetailClick(@todo.Id))">🔍 Detail</button>
+                                </div>
+                            </EditForm>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+}
+
+@code {
+    private List<ToDo> todos;
+
+    private ToDo newTodo = new ToDo();
+
+    private bool alertShow = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        todos = await ToDoRepository.GetAsync();
+    }
+
+
+    private void HandleDetailClick(Guid id)
+    {
+        NavigationManager.NavigateTo($"/todo/{id}");
+    }
+
+    private async Task HandleValidAdd()
+    {
+        Debug.WriteLine("HandleValidAdd");
+        await ToDoRepository.AddAsync(newTodo);
+        newTodo = new ToDo();
+        alertShow = true;
+        todos = await ToDoRepository.GetAsync();
+    }
+
+    private async Task HandleDeleteClick(Guid id)
+    {
+        Debug.WriteLine("HandleDeleteClick");
+        await ToDoRepository.DeleteAsync(id);
+        alertShow = false;
+        todos = await ToDoRepository.GetAsync();
+    }
+
+    private void HandleAlertClick()
+    {
+        Debug.WriteLine("HandleAlertClick");
+        alertShow = false;
+
+    }
+
+}

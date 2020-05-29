@@ -9,7 +9,7 @@ namespace BlazorWithEFCoreCosmos.Entity
         public bool Done { get; set; } = false;
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public DateTime UpdatedDate { get; set; } = DateTime.Now;
-        public DateTime DueDate { get; set; }
-        public DateTime DoneDate { get; set; }
+        public DateTime DueDate { get; set; } = DateTime.Now;
+        public DateTime DoneDate { get; set; } = DateTime.Now;
     }
 }

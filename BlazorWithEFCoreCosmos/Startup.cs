@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlazorWithEFCoreCosmos.Data;
 using BlazorWithEFCoreCosmos.Infrastructure.Cosmos;
+using BlazorWithEFCoreCosmos.Repository;
 
 namespace BlazorWithEFCoreCosmos
 {
@@ -35,6 +36,7 @@ namespace BlazorWithEFCoreCosmos
                 Configuration.GetValue<string>("DbConnection:Cosmos:AccountKey"),
                 Configuration.GetValue<string>("DbConnection:Cosmos:DatabaseName")
             ));
+            services.AddSingleton<IToDoRepository,ToDoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

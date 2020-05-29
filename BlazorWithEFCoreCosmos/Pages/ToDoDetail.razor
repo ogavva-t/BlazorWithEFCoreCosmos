@@ -1,0 +1,87 @@
+﻿@page "/todo/{id:guid}"
+@using System.Diagnostics
+@using BlazorWithEFCoreCosmos.Entity
+@using BlazorWithEFCoreCosmos.Repository
+@inject IToDoRepository ToDoRepository
+
+<h1>ToDo Detail</h1>
+
+@if (alertShow)
+{
+    <div class="alert alert-success" role="alert" @onclick="@(() => HandleAlertClick())">
+        Updated!
+    </div>
+}
+
+@if (todo == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<EditForm Model="@todo" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <input type="text" class="form-control" aria-describedby="order-id" value="@todo.Id" hidden>
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="todo.TaskName">Task Name</span>
+            <InputText id="todo.TaskName" @bind-Value="todo.TaskName" class="form-control" />
+        </div>
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="todo.DueDate">Due Date</span>
+            <InputDate id="todo.DueDate" @bind-Value="todo.DueDate" class="form-control" />
+        </div>
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="todo.Done">Done</span>
+            <InputDate id="todo.Done" @bind-Value="todo.Done" class="form-control" />
+        </div>
+    <button type="submit" class="btn btn-warning">Save</button>
+</EditForm>
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Done</th>
+                <th>Task Name</th>
+                <th>Due Date</th>
+                <th>Done Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@todo.Done</td>
+                <td>@todo.TaskName</td>
+                <td>@todo.DueDate</td>
+                <td>@todo.DoneDate</td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    private ToDo todo;
+
+    private bool alertShow = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        todo = await ToDoRepository.GetAsync(Id);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        Debug.WriteLine("OnValidSubmit");
+        await ToDoRepository.UpdateAsync(todo);
+        alertShow = true;
+    }
+    private void HandleAlertClick()
+    {
+        Debug.WriteLine("HandleAlertClick");
+        alertShow = false;
+    }
+}

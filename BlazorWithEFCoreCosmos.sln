@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWithEFCoreCosmos", "BlazorWithEFCoreCosmos\BlazorWithEFCoreCosmos.csproj", "{F6F3516A-D96A-4194-B198-44735198CD5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWithEFCoreCosmos", "BlazorWithEFCoreCosmos\BlazorWithEFCoreCosmos.csproj", "{F6F3516A-D96A-4194-B198-44735198CD5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWithEFCoreCosmos.Infrastructure", "BlazorWithEFCoreCosmos.Infrastructure\BlazorWithEFCoreCosmos.Infrastructure.csproj", "{2FDFD8B7-4AAB-4106-9537-B85C89B14C9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWithEFCoreCosmos.Infrastructure", "BlazorWithEFCoreCosmos.Infrastructure\BlazorWithEFCoreCosmos.Infrastructure.csproj", "{2FDFD8B7-4AAB-4106-9537-B85C89B14C9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWithEFCoreCosmos.Entity", "BlazorWithEFCoreCosmos.Entity\BlazorWithEFCoreCosmos.Entity.csproj", "{B875D3BE-51DD-4E70-8F79-D33DEB0B1C51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWithEFCoreCosmos.Entity", "BlazorWithEFCoreCosmos.Entity\BlazorWithEFCoreCosmos.Entity.csproj", "{B875D3BE-51DD-4E70-8F79-D33DEB0B1C51}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWithEFCoreCosmos.Repository", "BlazorWithEFCoreCosmos.Service\BlazorWithEFCoreCosmos.Repository.csproj", "{2430D361-F9B1-446C-8409-6E37A08472E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{B875D3BE-51DD-4E70-8F79-D33DEB0B1C51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B875D3BE-51DD-4E70-8F79-D33DEB0B1C51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B875D3BE-51DD-4E70-8F79-D33DEB0B1C51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2430D361-F9B1-446C-8409-6E37A08472E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2430D361-F9B1-446C-8409-6E37A08472E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2430D361-F9B1-446C-8409-6E37A08472E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2430D361-F9B1-446C-8409-6E37A08472E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
