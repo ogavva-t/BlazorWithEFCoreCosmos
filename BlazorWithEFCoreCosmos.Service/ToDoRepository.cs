@@ -5,7 +5,7 @@ using BlazorWithEFCoreCosmos.Entity;
 using Microsoft.EntityFrameworkCore;
 using BlazorWithEFCoreCosmos.Infrastructure.Cosmos;
 using System.Threading.Tasks;
-
+using System.Collections;
 
 namespace BlazorWithEFCoreCosmos.Repository
 {
@@ -15,6 +15,7 @@ namespace BlazorWithEFCoreCosmos.Repository
         Task<ToDo> GetAsync(Guid id);
         Task<ToDo> AddAsync(ToDo todo);
         Task<ToDo> UpdateAsync(ToDo todo);
+        Task<ToDo> UpdateAsync(Hashtable todo);
         Task<ToDo> DeleteAsync(Guid id);
     }
 
@@ -65,6 +66,23 @@ namespace BlazorWithEFCoreCosmos.Repository
                 await context.SaveChangesAsync();
                 return todo;
             }
+        }
+
+        public async Task<ToDo> Update(Hashtable todo)
+        {
+            using (var context = _dbDonnectionFactory.CreateConnection())
+            {
+                var existingToDo = await context.ToDo
+                    .FindAsync(todo["Id"]);
+
+                if (todo["CompanyName"] != null) existingToDo.TaskName = todo["TaskName"].ToString();
+                if (todo["Name"] != null) existingToDo.Done = todo["Done"].ToString() == "true" ? true : false;
+
+                context.ToDo.Update(existingToDo);
+                await context.SaveChangesAsync();
+                return existingToDo;
+            }
+
         }
 
         public async Task<ToDo> DeleteAsync(Guid id)
