@@ -68,7 +68,7 @@ namespace BlazorWithEFCoreCosmos.Repository
             }
         }
 
-        public async Task<ToDo> Update(Hashtable todo)
+        public async Task<ToDo> UpdateAsync(Hashtable todo)
         {
             using (var context = _dbDonnectionFactory.CreateConnection())
             {
